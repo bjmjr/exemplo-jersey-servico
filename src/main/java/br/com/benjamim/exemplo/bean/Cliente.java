@@ -1,5 +1,14 @@
 package br.com.benjamim.exemplo.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+
+import java.time.LocalDate;
+import java.util.Date;
+
 public class Cliente {
 
     private Long id;
@@ -7,13 +16,19 @@ public class Cliente {
     private String cpf;
     private String endereco;
 
+    @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate dataNascimento;
+
     public Cliente() { }
 
-    public Cliente(Long id, String nome, String cpf, String endereco) {
+    public Cliente(Long id, String nome, String cpf, String endereco, LocalDate dataNascimento) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.endereco = endereco;
+        this.dataNascimento = dataNascimento;
     }
 
     public void setId(Long id) { this.id = id; }
@@ -40,6 +55,14 @@ public class Cliente {
         return endereco;
     }
 
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
     @Override
     public String toString() {
         return "Cliente{" +
@@ -47,6 +70,7 @@ public class Cliente {
                 ", nome='" + nome + '\'' +
                 ", cpf='" + cpf + '\'' +
                 ", endereco='" + endereco + '\'' +
+                ", dataNascimento=" + dataNascimento +
                 '}';
     }
 }

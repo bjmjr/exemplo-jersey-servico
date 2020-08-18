@@ -26,19 +26,14 @@ public class ClienteDAO {
 
     public Cliente adicionarCliente(Cliente cliente){
 
-        System.out.println("Lista " + ClientesSingleton.clientes().size());
+        System.out.println(" ------> Adicionando cliente ");
 
         Long ultimoId = ClientesSingleton.clientes().stream().mapToLong(cli -> cli.getId()).max().orElse(0L);
 
         cliente.setId(++ultimoId);
 
-        System.out.println(" ------> Adicionando cliente ");
         System.out.println(cliente);
         System.out.println(" ------> Cliente adicionando com sucesso ");
-
-        ClientesSingleton.clientes().add(cliente);
-
-        System.out.println("Lista " + ClientesSingleton.clientes().size());
 
         return cliente;
     }
